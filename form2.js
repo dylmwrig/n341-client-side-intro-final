@@ -19,8 +19,11 @@
 
 $(document).ready(function()
 {
+    var dateSelected = ""; //used to track the date entered into datepicker
+
     $("input[type='submit']").button();
     $("input[type='reset']").button();
+    $("#slider").slider();
 
     //JQuery UI methods
     //
@@ -129,8 +132,38 @@ $(document).ready(function()
     }); //end validate
 
     $("input[type='radio']").checkboxradio();
-    $("#calendar").datepicker();
     $("#submit").click(formSubmit);
+    $("#detailReset").click(resetDate);
+
+    function resetDate()
+    {
+        dateSelected = "";
+    } //end resetDate
+
+    var lowPrice = -1, highPrice = -1;
+    //price slider
+    $("#slider").slider(
+    {
+        range: true,
+        values: [0, 67],
+        min: 0,
+        max: 100,
+        slide: function( event, ui )
+        {
+            $( "#priceRange" ).val("$" + ui.values[0] + " - $" + ui.values[1]);
+            lowPrice = ui.values[0];
+            highPrice = ui.values[1];
+        } //end slide
+    }); //end slider
+
+    $("#calendar").datepicker(
+    {
+        inline: true,
+        onSelect: function(dateText)
+        {
+            dateSelected = dateText;
+        } //end onSelect
+    }); //end datepicker
 
     //check each input and store it in the output for the user to review
     function formSubmit()
@@ -145,35 +178,23 @@ $(document).ready(function()
         var strDescriptionInput = new String($("#description").val());
         var strEmailInput = new String($("#email").val());
         var strPhoneNum = new String($("#phone").val());
-        var strLowPrice = new String($("#lowRange").val());
-        var strHighPrice = new String($("#highRange").val());
+        var strDatePicked = new String($("#calendar").val());
 
         //calendar broke when uploaded to pegasus
         //var strDatePicked = $("#calendar").datepicker("getDate");
 
         //price range is not necessary; if the user has none, the artist will come up with her own price
-        if (strLowPrice == "" && strHighPrice == "")
+        //you are not able to input negative numbers into the slider
+        //for this reason, we can check if the values are different from their initial state
+        if (lowPrice == -1 && highPrice == -1)
         {
-            strLowPrice = "Artist's discretion";
+            priceOutput = "Artist's discretion";
         } //end if
-
-        //otherwise, if the user only inputted a low or high end for the price range
-        //tell them that the price will be "around" their number
-        else if (strLowPrice == "")
-        {
-            strLowPrice = "Around ";
-        } //end else if
-
-        else if (strHighPrice == "")
-        {
-            strHighPrice = strLowPrice;
-            strLowPrice = "Around ";
-        } //end else if
 
         //otherwise, both forms are filled, so put a dash between them to indicate range
         else
         {
-            strLowPrice += "-";
+            priceOutput = "$" + lowPrice + "-$" + highPrice;
         } //end else
 
         //set output for everything depending on what has been filled
@@ -181,21 +202,17 @@ $(document).ready(function()
         var output = document.getElementById("output");
         output.innerHTML = "Your description: " + strDescriptionInput + "<br>" +
             "Your email: " + strEmailInput + "<br>" +
-            "Your price range (this is up for negotiation): " + strLowPrice + strHighPrice;
+            "Your price range (this is up for negotiation): " + priceOutput;
 
         if (strPhoneNum != "")
         {
             output.innerHTML += "<br> Your phone number: " + strPhoneNum;
         } //end if
 
-        /*
-        //for some reason the calendar stuff broke when I uploaded to pegasus
-        //I can't say I know how to check that a date has been selected on the calendar.
-        if (strDatePicked != "")
+        if (dateSelected != "")
         {
-            output.innerHTML += "<br> When you want it by: " + strDatePicked;
+            output.innerHTML += "<br> You want it by: " + dateSelected;
         } //end if
-        */
 
         var radioOutput = "";
         if ($("input[id=radioBust]:checked").val())
@@ -223,9 +240,14 @@ $(document).ready(function()
             output.innerHTML += "<br> Type of commission: " + radioOutput;
         } //end if
 
-        if ($("input[id=checkbox]:checked").val())
+        if ($("input[id=checkboxColor]:checked").val())
         {
             output.innerHTML += "<br> The commission will be in color.";
+        } //end if
+
+        if ($("input[id=checkboxBackground]:checked").val())
+        {
+            output.innerHTML += "<br> The commission will have a background.";
         } //end if
     } //end formSubmit
 
@@ -298,18 +320,6 @@ $(document).ready(function()
         $("#dialog").dialog("open");
         event.preventDefault();
     });
-
-
-    $("#datepicker").datepicker({
-        inline: true
-    });
-
-
-    $("#slider").slider({
-        range: true,
-        values: [17, 67]
-    });
-
 
     $("#progressbar").progressbar({
         value: 20
