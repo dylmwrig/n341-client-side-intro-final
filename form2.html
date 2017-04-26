@@ -59,19 +59,21 @@ also removed an old "confirm submission" field. Gave the commission description 
 
 <!-- commission info container -->
 <div>
-    <form>
+    <form id="detailsForm">
         <p>Please indicate the type of commission</p>
         <label for="radioBust">Bust</label>
-        <input type="radio" name="radio-1" id="radioBust">
+        <input type="radio" name="radio1" id="radioBust">
         <label for="radioWaist">From the waist up</label>
-        <input type="radio" name="radio-1" id="radioWaist">
+        <input type="radio" name="radio1" id="radioWaist">
         <label for="radioBody">Full body</label>
-        <input type="radio" name="radio-1" id="radioBody">
+        <input type="radio" name="radio1" id="radioBody">
         <label for="radioNotChar">Not a character</label>
-        <input type="radio" name="radio-1" id="radioNotChar">
+        <input type="radio" name="radio1" id="radioNotChar">
         <br>
-        <label for="checkbox">Would you like color?</label>
-        <input type="checkbox" name="checkbox" id="checkbox">
+        <label for="checkboxColor">Would you like color?</label>
+        <input type="checkbox" name="checkboxColor" id="checkboxColor">
+        <label for="checkboxBackground">Would you like a background?</label>
+        <input type="checkbox" name="checkboxBackground" id="checkboxBackground">
         <br>
         <br>
         <!--

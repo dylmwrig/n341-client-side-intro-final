@@ -11,6 +11,7 @@
  4/23/17: added various extra widgets such as radio buttons and checkboxes
  4/24/17: added more complex functionality such as specific rules as parameters in the validate function
  I also removed some manual validation methods I had created before utilizing JQuery UI/validate
+ 4/26/17: page no longer displays output if the user misses any required fields
  */
 
 //similarly to form2.css, I just copied this from the index included in JQuery UI
@@ -21,21 +22,12 @@ $(document).ready(function()
     $("input[type='submit']").button();
     $("input[type='reset']").button();
 
-    //currently unsure how to integrate validate into the accordion functionality
-    //because I now have to wrap everything in a form element
-    //$("#accordion").accordion();
-
     //JQuery UI methods
     //
     //start with validate, with specific parameters set for each piece of input
     //then set the "messages", which give feedback to the user while using the form
-    var validator = $("#commissionForm").validate({
-        invalidHandler: function() {
-            alert("We in sum shit");
-            alert(this.numberOfInvalids())
-            alert( validator.numberOfInvalids() + " field(s) are invalid" );
-        },
-
+    var commissionForm = $("#commissionForm");
+    commissionForm.validate({
         rules:
         {
             description:
@@ -89,7 +81,27 @@ $(document).ready(function()
         } //end messages
     }); //end validate
 
-    $("loginForm").validate({
+    var detailsForm = $("#detailsForm");
+    detailsForm.validate({
+        rules:
+        {
+            radio1:
+            {
+                required: true
+            }
+        }, //end rules
+
+        messages:
+        {
+            radio1:
+            {
+                required: "It is required to choose a 'type' of commission"
+            }
+        } //end messages
+    }); //end validate
+
+    var loginForm = $("#loginForm");
+    loginForm.validate({
         rules:
         {
             email:
@@ -100,7 +112,20 @@ $(document).ready(function()
             {
                 required: true
             }
-        } //end rules
+        }, //end rules
+
+        messages:
+        {
+            email:
+            {
+                required: "Please enter an email"
+            },
+
+            password:
+            {
+                required: "Please enter a password"
+            }
+        } //end messages
     }); //end validate
 
     $("input[type='radio']").checkboxradio();
@@ -110,15 +135,12 @@ $(document).ready(function()
     //check each input and store it in the output for the user to review
     function formSubmit()
     {
-        /*
-        var errors = validator.numberOfInvalids();
-        if (errors)
+        //only output the entries of the user if all required forms are filled
+        if (!detailsForm.valid() || !commissionForm.valid())
         {
-            alert("Outside with the cuuuuuuties")
-        }
-        */
-
-
+            $("#output").innerHTML = "Please enter information in all of the required fields.";
+            return;
+        } //end if
 
         var strDescriptionInput = new String($("#description").val());
         var strEmailInput = new String($("#email").val());
