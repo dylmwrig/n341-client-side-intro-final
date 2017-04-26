@@ -10,14 +10,16 @@ MODIFICATION HISTORY:
 04/17/2017: created file, linked javascript and JQuery UI, created form interface and integrated accordion from JQuery UI
 04/19/2017: added validation functionality. Struggling with integrating JQuery validate and accordion.
 04/23/2017: added some missing widgets/functionality like radio buttons
+04/24/2017: altered slider, removed the "required" field from some of the input boxes
+also removed an old "confirm submission" field. Gave the commission description form its own reset fields button
 -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Form Test</title>
     <!-- css to define theme colors -->
-    <link href="theme/jquery-ui/jquery-ui.css" rel="stylesheet">
-    <link href="form2.css" rel="stylesheet">
+    <link rel="stylesheet" href="theme/jquery-ui/jquery-ui.css" type="text/css"/>
+    <link rel="stylesheet" href="form2.css"/>
 
 
     <!-- jQuery UI functionality -->
@@ -31,54 +33,64 @@ MODIFICATION HISTORY:
     <form id="commissionForm">
         <h3>Commission description</h3>
         <div>Include a brief description of the piece you would like made.
-            <input id="description" type="text" placeholder="Describe your vision!" required/>
+            <input name="description" id="description" type="text" placeholder="Describe your vision!"/>
         </div>
         <h3>Email Address</h3>
         <div>Enter your email
-            <input id="email" type="email" placeholder="example@gmail.com" required/>
+            <input name="email" id="email" type="email" placeholder="example@gmail.com"/>
         </div>
         <h3>Phone number</h3>
-        <div>Enter your phone number
-            <input name="phone">
+        <div>Enter your phone number (No spaces)
+            <input name="phone" id="phone" placeholder="(555) 555-5555">
         </div>
         <h3>Price range</h3>
-        <div>What is your price range?
+        <div>What is your price range in USD?
+            <input name="lowRange" id="lowRange" placeholder="15">
+            -
+            <input name="highRange" id="highRange" placeholder="25">
+            <!-- I want to make this into a slider but the css isn't properly linking
+            <input type="text" id="priceRange" readonly/>
             <div id="priceSlider"></div>
-            <input id="price"/>
+            -->
         </div>
-        <div>
-            <input id="submit" class="submit" type="submit" value="Submit"/>
-            <input type="reset" class="reset" value="Reset"/>
-        </div>
+        <input type="reset" class="reset" value="Reset basic information"/>
     </form>
 </div>
 
-
-<div id="slider"></div>
-
-
 <!-- commission info container -->
 <div>
-    <p>Please indicate the type of commission</p>
-    <label for="radioBust">Bust</label>
-    <input type="radio" name="radio-1" id="radioBust">
-    <label for="radioWaist">From the waist up</label>
-    <input type="radio" name="radio-1" id="radioWaist">
-    <label for="radioBody">Full body</label>
-    <input type="radio" name="radio-1" id="radioBody">
-    <label for="radioNotChar">Not a character</label>
-    <input type="radio" name="radio-1" id="radioNotChar">
-    <br>
-    <label for="checkbox">Would you like color?</label>
-    <input type="checkbox" name="checkbox" id="checkbox">
-    <br>
-    <div id="calendar"></div>
+    <form>
+        <p>Please indicate the type of commission</p>
+        <label for="radioBust">Bust</label>
+        <input type="radio" name="radio-1" id="radioBust">
+        <label for="radioWaist">From the waist up</label>
+        <input type="radio" name="radio-1" id="radioWaist">
+        <label for="radioBody">Full body</label>
+        <input type="radio" name="radio-1" id="radioBody">
+        <label for="radioNotChar">Not a character</label>
+        <input type="radio" name="radio-1" id="radioNotChar">
+        <br>
+        <label for="checkbox">Would you like color?</label>
+        <input type="checkbox" name="checkbox" id="checkbox">
+        <br>
+        <br>
+        <!--
+        <label for="calendar">Around when would you like this done by?</label>
+        <div id="calendar"></div>
+        -->
+        <input type="reset" class="reset" value="Reset description"/>
+    </form>
+</div>
+
+<!-- form submission -->
+<div>
+    <input type="submit" id="submit" class="submit" value="Submit"/>
 </div>
 
 <!-- user login stuff -->
 <!-- just including this to fulfill requirements: the page has no use for this -->
 <div>
-    <form>
+    <form id="loginForm">
         <p>Login to check the status of your commission:</p>
         <!-- this email is separate from the other so you can make a commission under one email
              while checking the status of another. I don't think I'll even make
@@ -91,6 +103,5 @@ MODIFICATION HISTORY:
 </div>
 
 <div id="output">Please fill in the forms above. When you are done, press submit, and you can review the input here.</div>
-<button type="submit" id="confirm">Confirm form submission</button>
 </body>
 </html>
