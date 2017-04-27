@@ -25,10 +25,26 @@ $(document).ready(function()
     $("input[type='reset']").button();
     $("#slider").slider();
 
+    //suggestions to give to the user when entering who their commission is for
+    var autocompleteOptions =
+        [
+            "myself",
+            "my friend",
+            "my mom",
+            "my dad",
+            "my sibling",
+            "my coworker",
+            "a company",
+            "a podcast",
+            "my significant other",
+            "a role-playing campaign",
+        ]; //end autocompleteOptions
+
     //JQuery UI methods
     //
     //start with validate, with specific parameters set for each piece of input
     //then set the "messages", which give feedback to the user while using the form
+    //many of these are not actually required, but I was docked points when I didn't make them required, so I'll make everything required for the moment.
     var commissionForm = $("#commissionForm");
     commissionForm.validate({
         rules:
@@ -44,16 +60,9 @@ $(document).ready(function()
             },
             phone:
             {
+                required: true,
                 digits: true,
                 maxlength: 10
-            },
-            lowRange:
-            {
-                digits: true
-            },
-            highRange:
-            {
-                digits: true
             }
         }, //end rules
 
@@ -70,25 +79,47 @@ $(document).ready(function()
             },
             phone:
             {
+                required: "Please enter a phone number",
                 digits: "Please enter a valid phone number",
                 maxlength: "Please enter a valid phone number"
-            },
-            lowRange:
-            {
-                digits: "Please enter a number"
-            },
-            highRange:
-            {
-                digits: "Please enter a number"
             }
         } //end messages
     }); //end validate
 
     var detailsForm = $("#detailsForm");
     detailsForm.validate({
+        //groups allows for placing the error message after a group of form inputs
+        groups:
+        {
+            radios : "radio1" //all of the radio buttons
+        }, //end groups
+
+        errorPlacement: function(error, element)
+        {
+            if (element.attr("name") == "radio1")
+            {
+                error.insertAfter($("#radioNotChar")); //last radio button so place the error after this
+            } //end if
+
+            else
+            {
+                error.insertAfter(element);
+            } //end else
+        },
+
         rules:
         {
             radio1:
+            {
+                required: true
+            },
+
+            recipient:
+            {
+                required: true
+            },
+
+            calendar:
             {
                 required: true
             }
@@ -99,6 +130,16 @@ $(document).ready(function()
             radio1:
             {
                 required: "It is required to choose a 'type' of commission"
+            },
+
+            recipient:
+            {
+                required: "Please enter a recipient"
+            },
+
+            calendar:
+            {
+                required: "Please enter a date, it doesn't have to be exact"
             }
         } //end messages
     }); //end validate
@@ -165,6 +206,11 @@ $(document).ready(function()
         } //end onSelect
     }); //end datepicker
 
+    $("#recipient").autocomplete(
+    {
+        source: autocompleteOptions
+    }); //end autocomplete
+
     //check each input and store it in the output for the user to review
     function formSubmit()
     {
@@ -179,6 +225,7 @@ $(document).ready(function()
         var strEmailInput = new String($("#email").val());
         var strPhoneNum = new String($("#phone").val());
         var strDatePicked = new String($("#calendar").val());
+        var strRecipient = new String($("#recipient").val());
 
         //calendar broke when uploaded to pegasus
         //var strDatePicked = $("#calendar").datepicker("getDate");
@@ -249,102 +296,12 @@ $(document).ready(function()
         {
             output.innerHTML += "<br> The commission will have a background.";
         } //end if
+
+        if (strRecipient != "")
+        {
+            output.innerHTML += "<br> The commission is for " + strRecipient;
+        } //end if
     } //end formSubmit
 
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp",
-        "BASIC",
-        "C",
-        "C++",
-        "Clojure",
-        "COBOL",
-        "ColdFusion",
-        "Erlang",
-        "Fortran",
-        "Groovy",
-        "Haskell",
-        "Java",
-        "JavaScript",
-        "Lisp",
-        "Perl",
-        "PHP",
-        "Python",
-        "Ruby",
-        "Scala",
-        "Scheme"
-    ];
-    $("#autocomplete").autocomplete({
-        source: availableTags
-    });
-
-
     $("#button").button();
-    $("#button-icon").button({
-        icon: "ui-icon-gear",
-        showLabel: false
-    });
-
-
-    $("#radioset").buttonset();
-
-
-    $("#controlgroup").controlgroup();
-
-
-    $("#tabs").tabs();
-
-
-    $("#dialog").dialog({
-        autoOpen: false,
-        width: 400,
-        buttons: [
-            {
-                text: "Ok",
-                click: function () {
-                    $(this).dialog("close");
-                }
-            },
-            {
-                text: "Cancel",
-                click: function () {
-                    $(this).dialog("close");
-                }
-            }
-        ]
-    });
-
-    // Link to open the dialog
-    $("#dialog-link").click(function (event) {
-        $("#dialog").dialog("open");
-        event.preventDefault();
-    });
-
-    $("#progressbar").progressbar({
-        value: 20
-    });
-
-
-    $("#spinner").spinner();
-
-
-    $("#menu").menu();
-
-
-    $("#tooltip").tooltip();
-
-
-    $("#selectmenu").selectmenu();
-
-
-    // Hover states on the static widgets
-    $("#dialog-link, #icons li").hover(
-        function () {
-            $(this).addClass("ui-state-hover");
-        },
-        function () {
-            $(this).removeClass("ui-state-hover");
-        }
-    );
 }); //end document.ready
