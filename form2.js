@@ -63,6 +63,10 @@ $(document).ready(function()
                 required: true,
                 digits: true,
                 maxlength: 10
+            },
+            slider:
+            {
+                required: true
             }
         }, //end rules
 
@@ -82,6 +86,10 @@ $(document).ready(function()
                 required: "Please enter a phone number",
                 digits: "Please enter a valid phone number",
                 maxlength: "Please enter a valid phone number"
+            },
+            slider:
+            {
+                required: "Please enter a general price range, it doesn't have to be exact."
             }
         } //end messages
     }); //end validate
