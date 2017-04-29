@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-TITLE: form2.html
+TITLE: formFinal.html
 AUTHOR: Dylan Wright (DMW)
 PURPOSE: Form field for final project
 ORIGINALLY CREATED ON: 04/17/17
@@ -14,6 +14,8 @@ MODIFICATION HISTORY:
 also removed an old "confirm submission" field. Gave the commission description form its own reset fields button
 04/26/2017: giving up for now on linking the JQueryUI css locally, just going to link the hosted version until I can figure it out
 readded slider and calendar because the css is actually showing up now
+04/29/2017: changed file name from "form2.html" to "formFinal.html"
+removed embedded google sheet
 -->
 <html lang="en">
 <head>
@@ -21,7 +23,7 @@ readded slider and calendar because the css is actually showing up now
     <title>Form Test</title>
 
     <!-- css to define theme colors -->
-    <link rel="stylesheet" href="form2.css"/>
+    <link rel="stylesheet" href="formFinal.css"/>
     <!-- I would ideally be linking a local copy of the css, but this is not working and I cannot identify the issue, not for lack of trying.
          So I'll just link the hosted version for now. -->
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/sunny/jquery-ui.css" type="text/css" />
@@ -30,11 +32,11 @@ readded slider and calendar because the css is actually showing up now
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript" src="theme/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="theme/jquery.validate.js"></script> <!--validation JQuery stuff-->
-    <script type="text/javascript" src="form2.js"></script>
+    <script type="text/javascript" src="formFinal.js"></script>
 </head>
 <body>
 
-<iframe src="https://docs.google.com/spreadsheets/d/1Q6WNhEw8_gQ9gOHu0hikxEULYfQKyubiscs8BQU0s2A/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+<h1 id="artistName">Salma Cruz Illustration</h1>
 
 <div id="accordion">
     <form id="commissionForm">

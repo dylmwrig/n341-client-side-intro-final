@@ -1,5 +1,5 @@
 /*
- TITLE: form2.js
+ TITLE: formFinal.js
  AUTHOR: Dylan Wright (DMW)
  PURPOSE: take input from forms
  ORIGINALLY CREATED ON: 4/23/17
@@ -12,6 +12,7 @@
  4/24/17: added more complex functionality such as specific rules as parameters in the validate function
  I also removed some manual validation methods I had created before utilizing JQuery UI/validate
  4/26/17: page no longer displays output if the user misses any required fields
+ 4/29/17: changed name to formFinal.js from formFinal.js
  */
 
 //similarly to form2.css, I just copied this from the index included in JQuery UI
@@ -183,6 +184,7 @@ $(document).ready(function()
     $("input[type='radio']").checkboxradio();
     $("#submit").click(formSubmit);
     $("#detailReset").click(resetDate);
+    $("#accordion").accordion();
 
     function resetDate()
     {

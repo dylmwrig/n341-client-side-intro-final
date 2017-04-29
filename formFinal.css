@@ -1,0 +1,101 @@
+/*
+  copied from the internal styling on the index file downloaded from JQuery UI
+
+    TITLE: formFinal.css
+    AUTHOR: Dylan Wright (DMW)
+    PURPOSE: Make an appealing art site
+    ORIGINALLY CREATED ON: 04/17/17
+    LAST MODIFIED ON: 04/29/17
+    LAST MODIFIED BY: Dylan Wright (DMW)
+    MODIFICATION HISTORY:
+    04/17/17: created file
+    04/29/17: added header block documentation, added web font
+*/
+
+@font-face
+{
+    font-family: 'parabolaregular';
+    src: url('parabola-regular-webfont.eot');
+    src: url('parabola-regular-webfont.eot?#iefix') format('embedded-opentype'),
+    url('parabola-regular-webfont.woff2') format('woff2'),
+    url('parabola-regular-webfont.woff') format('woff'),
+    url('parabola-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+{
+    font-family: "Trebuchet MS", sans-serif;
+    margin: 50px;
+}
+
+#artistName
+{
+    font-family: "parabolaregular", sans-serif;
+}
+
+#description
+{
+    /*
+    TODO
+    I want to make this a larger text box but it is taking up too much space
+    should be ez to do once I get the accordion working again though
+    height:200px;
+    position: absolute;
+    */
+}
+
+.demoHeaders
+{
+    margin-top: 2em;
+}
+
+
+#dialog-link
+{
+    padding: .4em 1em .4em 20px;
+    text-decoration: none;
+    position: relative;
+}
+
+#dialog-link span.ui-icon
+{
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: .2em;
+    top: 50%;
+    margin-top: -8px;
+}
+
+#icons
+{
+    margin: 0;
+    padding: 0;
+}
+
+#icons li
+{
+    margin: 2px;
+    position: relative;
+    padding: 4px 0;
+    cursor: pointer;
+    float: left;
+    list-style: none;
+}
+
+#icons span.ui-icon
+{
+    float: left;
+    margin: 0 4px;
+}
+
+.fakewindowcontain .ui-widget-overlay
+{
+    position: absolute;
+}
+
+select
+{
+    width: 200px;
+}
