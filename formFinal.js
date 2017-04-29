@@ -24,7 +24,6 @@ $(document).ready(function()
 
     $("input[type='submit']").button();
     $("input[type='reset']").button();
-    $("#slider").slider();
 
     //suggestions to give to the user when entering who their commission is for
     var autocompleteOptions =
@@ -183,8 +182,17 @@ $(document).ready(function()
 
     $("input[type='radio']").checkboxradio();
     $("#submit").click(formSubmit);
+    $("#resetMain").click(resetMain);
     $("#detailReset").click(resetDate);
     $("#accordion").accordion();
+
+    //reset the main form
+    //most of the form is automatically reset by the reset button
+    //however, I need to write in the ability to reset the slider as well
+    function resetMain()
+    {
+        $("#slider").slider("value", $("#slider").slider("option", "min") );
+    } //end resetMain
 
     function resetDate()
     {

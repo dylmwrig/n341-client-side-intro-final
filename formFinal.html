@@ -15,7 +15,8 @@ also removed an old "confirm submission" field. Gave the commission description 
 04/26/2017: giving up for now on linking the JQueryUI css locally, just going to link the hosted version until I can figure it out
 readded slider and calendar because the css is actually showing up now
 04/29/2017: changed file name from "form2.html" to "formFinal.html"
-removed embedded google sheet
+removed embedded google sheet. Added both forms to the accordion
+added navigation bar and title at the top of the page. Navigation bar currently goes nowhere
 -->
 <html lang="en">
 <head>
@@ -26,7 +27,10 @@ removed embedded google sheet
     <link rel="stylesheet" href="formFinal.css"/>
     <!-- I would ideally be linking a local copy of the css, but this is not working and I cannot identify the issue, not for lack of trying.
          So I'll just link the hosted version for now. -->
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/humanity/jquery-ui.min.css">
+    <!--
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/themes/sunny/jquery-ui.css" type="text/css" />
+    -->
 
     <!-- jQuery UI functionality -->
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -34,7 +38,15 @@ removed embedded google sheet
     <script type="text/javascript" src="theme/jquery.validate.js"></script> <!--validation JQuery stuff-->
     <script type="text/javascript" src="formFinal.js"></script>
 </head>
-<body>
+
+<!-- links to different pages on the site -->
+<div id="navigation">
+    <a>HOME</a>
+    <a>PORTFOLIO</a>
+    <a>PERSONAL ILLUSTRATIONS</a>
+    <a>GALLERY EXHIBITIONS / AWARDS</a>
+    <a>COMMISSION INQUIRIES</a>
+</div>
 
 <div id="header">
     <h1 id="artistName">Salma Cruz Illustration</h1>
@@ -44,64 +56,81 @@ removed embedded google sheet
     </div>
 </div>
 
+<div id="line"></div>
+
 <div id="accordion">
-    <form id="commissionForm">
-        <h3>Commission description</h3>
-        <div>Include a brief description of the piece you would like made.
-            <input name="description" id="description" type="text" placeholder="Describe your vision!"/>
-        </div>
-        <h3>Email Address</h3>
-        <div>Enter your email
-            <input name="email" id="email" type="email" placeholder="example@gmail.com"/>
-        </div>
-        <h3>Phone number</h3>
-        <div>Enter your phone number (No spaces)
-            <input name="phone" id="phone" placeholder="(555) 555-5555">
-        </div>
-        <h3>Price range</h3>
-        <div>What is your price range in USD?
-            <!--originally used text boxes for price range but I'm now using a slider
-                going to comment it out for if I decide to go back to text boxes
-            <input name="lowRange" id="lowRange" placeholder="15">
-            -
-            <input name="highRange" id="highRange" placeholder="25">
-            -->
-            <input type="text" id="priceRange" readonly/>
-            <div id="slider"></div>
-        </div>
-        <br>
-        <br>
-        <input type="reset" class="reset" value="Reset basic information"/>
-    </form>
+    <h3>Basic Information</h3>
+    <div>
+        <form id="commissionForm">
+            <h3>Commission description</h3>
+            <div>Include a brief description of the piece you would like made.
+                <input name="description" id="description" type="text" placeholder="Describe your vision!"/>
+            </div>
+            <h3>Email Address</h3>
+            <div>Enter your email
+                <input name="email" id="email" type="email" placeholder="example@gmail.com"/>
+            </div>
+            <h3>Phone number</h3>
+            <div>Enter your phone number (No spaces)
+                <input name="phone" id="phone" placeholder="(555) 555-5555">
+            </div>
+            <h3>Price range</h3>
+            <div>What is your price range in USD?
+                <input type="text" id="priceRange" readonly/>
+                <div id="slider"></div>
+            </div>
+            <br>
+            <br>
+            <input id="resetMain" type="reset" class="reset" value="Reset basic information"/>
+        </form>
+    </div>
+
+    <h3>Commission details</h3>
+    <div><div>
+        <form id="detailsForm">
+            <p>Please indicate the type of commission</p>
+            <div id="radioButtons">
+                <p>Select one of the following:</p>
+                <div class="radio">
+                    <label for="radioBust">Bust</label>
+                    <input type="radio" name="radio1" id="radioBust">
+                </div>
+                <div class ="radio">
+                    <label for="radioWaist">From the waist up</label>
+                    <input class ="radio" type="radio" name="radio1" id="radioWaist">
+                </div>
+                <div class="radio">
+                    <label for="radioBody">Full body</label>
+                    <input class ="radio" type="radio" name="radio1" id="radioBody">
+                </div>
+                <div class="radio">
+                    <label for="radioNotChar">Not a character</label>
+                    <input class ="radio" type="radio" name="radio1" id="radioNotChar">
+                </div>
+            </div>
+            <br>
+            <br>
+            <br>
+            <label for="checkboxColor">Would you like color?</label>
+            <input type="checkbox" name="checkboxColor" id="checkboxColor">
+            <label for="checkboxBackground">Would you like a background?</label>
+            <input type="checkbox" name="checkboxBackground" id="checkboxBackground">
+            <br>
+            <label for="recipient">Who is this for?</label>
+            <input id="recipient" name="recipient">
+            <br>
+            <p>Around when would you like this done by?</p>
+            <div id="calendar"></div>
+
+            <input id="detailReset" type="reset" class="reset" value="Reset commission details"/>
+        </form>
+    </div>
+
+    </div>
 </div>
 
 <!-- commission info container -->
-<div>
-    <form id="detailsForm">
-        <p>Please indicate the type of commission</p>
-        <label for="radioBust">Bust</label>
-        <input type="radio" name="radio1" id="radioBust">
-        <label for="radioWaist">From the waist up</label>
-        <input type="radio" name="radio1" id="radioWaist">
-        <label for="radioBody">Full body</label>
-        <input type="radio" name="radio1" id="radioBody">
-        <label for="radioNotChar">Not a character</label>
-        <input type="radio" name="radio1" id="radioNotChar">
-        <br>
-        <label for="checkboxColor">Would you like color?</label>
-        <input type="checkbox" name="checkboxColor" id="checkboxColor">
-        <label for="checkboxBackground">Would you like a background?</label>
-        <input type="checkbox" name="checkboxBackground" id="checkboxBackground">
-        <br>
-        <label for="recipient">Who is this for?</label>
-        <input id="recipient" name="recipient">
-        <br>
-        <p>Around when would you like this done by?</p>
-        <div id="calendar"></div>
 
-        <input id="detailReset" type="reset" class="reset" value="Reset description"/>
-    </form>
-</div>
 
 <!-- form submission -->
 <div>

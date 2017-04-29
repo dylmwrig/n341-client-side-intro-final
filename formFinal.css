@@ -10,6 +10,7 @@
     MODIFICATION HISTORY:
     04/17/17: created file
     04/29/17: added header block documentation, added web font
+    doing a lot of style stuff for different parts of the page such as the top of the page
 */
 
 @font-face
@@ -28,6 +29,42 @@ body
 {
     font-family: "Trebuchet MS", sans-serif;
     margin: 50px;
+}
+
+#navigation
+{
+    top: 0;
+    width: 100%;
+    height: 25px;
+    background-color: #FDA925;
+    color: white;
+    margin: 0px;
+    border: 0px;
+    outline: 0px;
+    padding: 0px;
+}
+
+#header
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+#radioButtons > p
+{
+    margin-bottom: 0px;
+}
+
+.radio
+{
+    padding-right: 20px;
+    alignment: right;
+    float: left;
+}
+
+#navigation > a
+{
+    padding-right: 30px;
 }
 
 #artistName
@@ -56,9 +93,11 @@ body
     position: relative;
 }
 
-#header
+#line
 {
-    padding-bottom: 20px;
+    height: 3px;
+    background-color: #FDA925;
+    margin-bottom: 15px;
 }
 
 #description
