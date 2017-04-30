@@ -102,13 +102,8 @@ body
 
 #description
 {
-    /*
-    TODO
-    I want to make this a larger text box but it is taking up too much space
-    should be ez to do once I get the accordion working again though
-    height:200px;
+    height:50px;
     position: absolute;
-    */
 }
 
 .demoHeaders
