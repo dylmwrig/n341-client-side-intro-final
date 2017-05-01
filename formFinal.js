@@ -13,6 +13,7 @@
  I also removed some manual validation methods I had created before utilizing JQuery UI/validate
  4/26/17: page no longer displays output if the user misses any required fields
  4/29/17: changed name to formFinal.js from formFinal.js
+ 5/01/17: working on validating the form which is closed in the accordion
  */
 
 //similarly to form2.css, I just copied this from the index included in JQuery UI
@@ -184,7 +185,9 @@ $(document).ready(function()
     $("#submit").click(formSubmit);
     $("#resetMain").click(resetMain);
     $("#detailReset").click(resetDate);
-    $("#accordion").accordion();
+    $("#accordion").accordion(
+    {
+    }); //end accordion
 
     //reset the main form
     //most of the form is automatically reset by the reset button
@@ -229,19 +232,52 @@ $(document).ready(function()
         source: autocompleteOptions
     }); //end autocomplete
 
+    //because the details and main form sections are on different tabs of the accordion,
+    //the first form is being registered as valid even when it's not
+    //check that this form is filled manually
+    function form1Valid(strDescriptionInput, strEmailInput, strPhoneNum)
+    {
+        if (strDescriptionInput == "" || strEmailInput == "" || strPhoneNum == "")
+        {
+            return false;
+        } //end if
+
+        else
+        {
+            console.log("all of these are not empty: \ndesc " + strDescriptionInput +
+                "\nemail " + strEmailInput + "\nphone " + strPhoneNum);
+            return true;
+        } //end else
+    } //end form1Check
+
     //check each input and store it in the output for the user to review
     function formSubmit()
     {
+        var active =$( "#accordion").accordion( "option", "active" );
+        var strDescriptionInput = new String($("#description").val());
+        var strEmailInput = new String($("#email").val());
+        var strPhoneNum = new String($("#phone").val());
+
         //only output the entries of the user if all required forms are filled
         if (!detailsForm.valid() || !commissionForm.valid())
         {
             $("#output").innerHTML = "Please enter information in all of the required fields.";
+            console.log("First if");
             return;
         } //end if
 
-        var strDescriptionInput = new String($("#description").val());
-        var strEmailInput = new String($("#email").val());
-        var strPhoneNum = new String($("#phone").val());
+        else if (!form1Valid(strDescriptionInput, strEmailInput, strPhoneNum))
+        {
+            $("#output").innerHTML = "Please finish entering information into the main information field.";
+            console.log("Second if");
+
+            console.log("vinyl drizzards: \ndesc " + strDescriptionInput +
+                "\nemail " + strEmailInput + "\nphone " + strPhoneNum);
+            return;
+        } //end else if
+
+        console.log("Past conditionals");
+
         var strDatePicked = new String($("#calendar").val());
         var strRecipient = new String($("#recipient").val());
 

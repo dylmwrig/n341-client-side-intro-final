@@ -102,8 +102,9 @@ body
 
 #description
 {
-    height:50px;
-    position: absolute;
+    overflow: scroll;
+    height: 60px;
+    width: 400px;
 }
 
 .demoHeaders
